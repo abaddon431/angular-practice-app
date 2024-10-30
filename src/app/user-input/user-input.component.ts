@@ -16,10 +16,10 @@ export class UserInputComponent {
   inputExpectedReturn!: number;
   inputDuration!: number;
 
-  private appService = inject(AppService);
+  constructor (private appService: AppService) {}
 
   protected  onSubmit(){
-    this.appService.calculateInvestment({
+    this.appService.calculateInvestmentResults({
         initialInvestment: this.inputInitialInvestment,
         annualInvestment: this.inputAnnualInvestment,
         expectedReturn: this.inputExpectedReturn,

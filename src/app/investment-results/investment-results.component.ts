@@ -13,6 +13,6 @@ export class InvestmentResultsComponent {
   constructor(private appService: AppService){}
 
   get investmentResults(){
-    return this.appService.getAnnualData()
+    return this.appService.annualData()
   }
 }

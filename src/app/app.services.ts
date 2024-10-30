@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { type InvestmentInput } from "./user-input/user-input";
 
 interface AnnualData{
@@ -12,17 +12,9 @@ interface AnnualData{
 
 @Injectable({providedIn: 'root'})
 export class AppService{
-  private annualData?: AnnualData[]
+  public annualData = signal<AnnualData[]| undefined>(undefined);
 
-  public calculateInvestment(userInput: InvestmentInput){
-    this.annualData = this.calculateInvestmentResults(userInput)
-  }
-
-  public getAnnualData(){
-    return this.annualData
-  }
-
-  private calculateInvestmentResults(userInput: InvestmentInput): AnnualData[] {
+  public calculateInvestmentResults(userInput: InvestmentInput){
     const annualData = [];
     let investmentValue = userInput.initialInvestment;
 
@@ -41,6 +33,6 @@ export class AppService{
         totalAmountInvested: userInput.initialInvestment + userInput.annualInvestment * year,
       });
     }
-    return annualData;
+    this.annualData.set(annualData);
   }
 }
